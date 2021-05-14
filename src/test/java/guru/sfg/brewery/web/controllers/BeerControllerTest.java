@@ -75,6 +75,8 @@ class BeerControllerTest {
                 .build();
     }
 
+
+
     @Test
     void findBeers() throws Exception{
         mockMvc.perform(get("/beers/find"))
