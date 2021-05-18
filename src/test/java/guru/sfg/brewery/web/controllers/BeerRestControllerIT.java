@@ -19,11 +19,17 @@ public class BeerRestControllerIT extends BaseIT{
     }
 
    @Test
-    void getBeersWithAnonAccess() throws Exception{
+    void getBeerByID() throws Exception{
         mockMvc.perform(get("/api/v1/beer/3f617357-174a-4f48-a19b-b0d5d76e227c"))
                 .andExpect(status().isOk());
 
- //       verifyNoInteractions(beerRepository);
+    }
+
+    @Test
+    void getBeerByUpc() throws Exception{
+        mockMvc.perform(get("/api/v1/beerUpc/0631234200036"))
+                .andExpect(status().isOk());
+
     }
 
 
