@@ -19,6 +19,18 @@ public class PasswordEncodingTests {
 
 
     @Test
+    public void bcrypt15Encoder() throws Exception {
+
+        PasswordEncoder bcrypt15 = new BCryptPasswordEncoder(15);
+
+        //uses a random salt so value changes
+        // default strength = 10
+     //   System.out.println(bcrypt15.encode(PASSWORD));
+        System.out.println(bcrypt15.encode("tiger"));
+    //    System.out.println(bcrypt15.encode(PASSWORD));
+    }
+
+    @Test
     public void bcryptEncoder() throws Exception {
 
         PasswordEncoder bcrypt = new BCryptPasswordEncoder();

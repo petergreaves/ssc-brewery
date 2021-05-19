@@ -44,6 +44,10 @@ public class BeerRestController {
     private static final Integer DEFAULT_PAGE_NUMBER = 0;
     private static final Integer DEFAULT_PAGE_SIZE = 25;
 
+    public static final String API_KEY_HEADER_NAME = "Api-Key";
+    public static final String API_SECRET_HEADER_NAME = "Api-Secret";
+
+
     private final BeerService beerService;
 
     @GetMapping(produces = { "application/json" }, path = "beer")
