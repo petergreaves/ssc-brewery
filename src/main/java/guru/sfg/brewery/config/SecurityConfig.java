@@ -1,5 +1,6 @@
 package guru.sfg.brewery.config;
 
+import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.ExampleMatcher;
@@ -54,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        // return new LdapShaPasswordEncoder();
      //   return new StandardPasswordEncoder();
      //   return new BCryptPasswordEncoder();
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
@@ -70,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("scott")
                 .password("{sha256}ef95a4d66ee73a4681c747019fc928f5cba1fff2bbdd31aef6f706960673ecb257846dc1c86af9e4")
-                .roles("CUSTOMER");;
+                .roles("CUSTOMER");
     }
 
 
