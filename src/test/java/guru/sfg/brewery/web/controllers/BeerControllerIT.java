@@ -2,51 +2,41 @@ package guru.sfg.brewery.web.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//@WebMvcTest
+@SpringBootTest
 public class BeerControllerIT extends BaseIT{
 
-
-
     @Test
-    void initCreateBeerFormForSpringUser() throws Exception {
-        mockMvc.perform(get("/beers/new")
-                .with(SecurityMockMvcRequestPostProcessors.httpBasic("spring", "guru")))
+    void initCreationFormWithSpring() throws Exception {
+        mockMvc.perform(get("/beers/new").with(httpBasic("spring", "guru")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
-
-
     }
 
     @Test
-    void initCreateBeerFormForUserUser() throws Exception {
-        mockMvc.perform(get("/beers/new")
-                .with(SecurityMockMvcRequestPostProcessors.httpBasic("user", "password")))
+    void initCreationForm() throws Exception {
+        mockMvc.perform(get("/beers/new").with(httpBasic("user", "password")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
-
-        verifyNoInteractions(beerRepository);
-
     }
 
     @Test
-    void initCreateBeerFormForScott() throws Exception {
-        mockMvc.perform(get("/beers/new")
-                .with(SecurityMockMvcRequestPostProcessors.httpBasic("scott", "tiger")))
+    void initCreationFormWithScott() throws Exception {
+        mockMvc.perform(get("/beers/new").with(httpBasic("scott", "tiger")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
-
-        verifyNoInteractions(beerRepository);
-
     }
 
     @Test
@@ -55,17 +45,17 @@ public class BeerControllerIT extends BaseIT{
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/findBeers"))
                 .andExpect(model().attributeExists("beer"));
-
-        verifyNoInteractions(beerRepository);
     }
 
     @Test
-    void findBeersWithAnonAccess() throws Exception{
-        mockMvc.perform(get("/beers/find"))
+    void findBeersWithAnonymous() throws Exception{
+        mockMvc.perform(get("/beers/find").with(anonymous()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/findBeers"))
                 .andExpect(model().attributeExists("beer"));
-
-        verifyNoInteractions(beerRepository);
     }
+
+
+
+
 }
