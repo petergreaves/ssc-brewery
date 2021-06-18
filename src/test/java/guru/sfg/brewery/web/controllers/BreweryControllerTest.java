@@ -85,6 +85,18 @@ public class BreweryControllerTest {
     }
 
     @Test
+    public void testListBreweriesForUserRole() throws Exception {
+
+        when(breweryRepository.findAll()).thenReturn(breweryList);
+
+        mockMvc.perform(get("/brewery/breweries")
+                .with(httpBasic("user", "password")))
+                .andExpect(status().isForbidden());
+
+
+    }
+
+    @Test
     public void testListBreweriesForAnon() throws Exception {
 
         when(breweryRepository.findAll()).thenReturn(breweryList);

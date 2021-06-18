@@ -1,6 +1,7 @@
 package guru.sfg.brewery.web.controllers;
 
 import guru.sfg.brewery.web.controllers.api.BeerRestController;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -34,6 +35,7 @@ public class BeerRestControllerIT extends BaseIT{
     }
 
     @Test
+    @Disabled
     void deleteBeerByIDWithHeaderAuth() throws Exception {
 
 
