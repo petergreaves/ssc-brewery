@@ -30,13 +30,12 @@ import java.util.List;
 
 
 @RequiredArgsConstructor
-@RequestMapping("/brewery")
 @Controller
 public class BreweryController {
 
     private final BreweryService breweryService;
 
-    @GetMapping({"/breweries", "/breweries/index", "/breweries/index.html", "/breweries.html"})
+    @GetMapping({"/brewery/breweries", "/brewery/breweries/index", "/brewery/breweries/index.html", "/brewery/breweries.html"})
     public String listBreweries(Model model) {
         model.addAttribute("breweries", breweryService.getAllBreweries());
         return "breweries/index";
