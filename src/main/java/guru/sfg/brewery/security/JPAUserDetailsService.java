@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,12 +25,14 @@ public class JPAUserDetailsService implements org.springframework.security.core.
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user=userRepository.findByUsername(username).orElseThrow(() ->{
                 return new UsernameNotFoundException("User with name " + username  +" was not found in the user repository");
 
         });
+        log.debug("Returning user for " + username);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 user.isEnabled(), user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonLocked(),
                 convertToSpringAuthorities(user.getAuthorities()));

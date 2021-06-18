@@ -4,29 +4,29 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+//@WebMvcTest
 public class BeerControllerIT extends BaseIT{
 
 
 
     @Test
-    void initCreateBeerFormForFoo() throws Exception {
+    void initCreateBeerFormForSpringUser() throws Exception {
         mockMvc.perform(get("/beers/new")
-                .with(SecurityMockMvcRequestPostProcessors.httpBasic("foo", "bar")))
+                .with(SecurityMockMvcRequestPostProcessors.httpBasic("spring", "guru")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
 
-        verifyNoInteractions(beerRepository);
 
     }
 
     @Test
-    void initCreateBeerFormForUser() throws Exception {
+    void initCreateBeerFormForUserUser() throws Exception {
         mockMvc.perform(get("/beers/new")
                 .with(SecurityMockMvcRequestPostProcessors.httpBasic("user", "password")))
                 .andExpect(status().isOk())
