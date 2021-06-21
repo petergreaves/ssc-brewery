@@ -128,7 +128,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void processUpdationForm() throws Exception{
+    void processUpdateForm() throws Exception{
         when(customerRepository.save(ArgumentMatchers.any())).thenReturn(Customer.builder().id(uuid).build());
 
         mockMvc.perform(post("/customers/"+uuid+"/edit"))

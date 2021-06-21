@@ -83,6 +83,7 @@ public class CustomerController {
         return "customers/createCustomer";
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     @PostMapping("/new")
     public String processCreationForm(Customer customer) {
         //ToDO: Add Service
@@ -101,10 +102,10 @@ public class CustomerController {
        return "customers/createOrUpdateCustomer";
    }
 
-    @PostMapping("/{beerId}/edit")
+    @PostMapping("/{customerId}/edit")
     public String processUpdationForm(@Valid Customer customer, BindingResult result) {
         if (result.hasErrors()) {
-            return "beers/createOrUpdateCustomer";
+            return "customers/createOrUpdateCustomer";
         } else {
             //ToDO: Add Service
             Customer savedCustomer =  customerRepository.save(customer);
