@@ -43,10 +43,20 @@ public abstract class BaseIT {
                 Arguments.of("user", "password"));
     }
 
+    public static Stream<Arguments> getStreamCustomerAndAdmin() {
+        return Stream.of(Arguments.of("scott", "tiger"),
+                Arguments.of("spring", "guru"));
+    }
+
     public static Stream<Arguments> getStreamAdminOnly() {
         return Stream.of(Arguments.of("spring", "guru"));
     }
     public static Stream<Arguments> getStreamCustomerOnly() {
         return Stream.of(Arguments.of("scott", "tiger"));
     }
+    public static Stream<Arguments> getStreamUserOnly() {
+        return Stream.of(Arguments.of("user", "password"));
+    }
+
+
 }
