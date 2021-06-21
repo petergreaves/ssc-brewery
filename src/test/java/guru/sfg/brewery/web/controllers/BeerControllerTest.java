@@ -42,6 +42,8 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -80,11 +82,12 @@ class BeerControllerTest {
     @Test
     void findBeers() throws Exception{
         mockMvc.perform(get("/beers/find"))
-                .andExpect(status().isOk())
                 .andExpect(view().name("beers/findBeers"))
-                .andExpect(model().attributeExists("beer"));
-        verifyZeroInteractions(beerRepository);
+                .andExpect(model().attributeExists("beer"))
+                .andExpect(status().is2xxSuccessful());
+
     }
+
 
     //ToDO: Mocking Page
      void processFindFormReturnMany() throws Exception{
@@ -137,7 +140,7 @@ class BeerControllerTest {
     }
 
     @Test
-    void processUpdationForm() throws Exception {
+    void processUpdateForm() throws Exception {
         when(beerRepository.save(ArgumentMatchers.any())).thenReturn(Beer.builder().id(uuid).build());
 
         mockMvc.perform(post("/beers/"+uuid+"/edit"))

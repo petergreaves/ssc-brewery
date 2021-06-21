@@ -16,6 +16,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 public class IndexIT extends BaseIT {
+    @MockBean
+    BeerRepository beerRepository;
+
+    @MockBean
+    BeerInventoryRepository beerInventoryRepository;
+
+    @MockBean
+    BreweryService breweryService;
+
+    @MockBean
+    CustomerRepository customerRepository;
+
+    @MockBean
+    BeerService beerService;
 
     @Test
     void testGetIndexSlash() throws Exception{

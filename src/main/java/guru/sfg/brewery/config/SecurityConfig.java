@@ -22,10 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests(authorize -> {
                     authorize.antMatchers("/h2-console/**").permitAll()
                             .antMatchers("/", "/webjars/**", "/login").permitAll()
-                            .antMatchers("/beers/find", "/beers*").permitAll()
+                            .mvcMatchers("/beers/find", "/beers*").hasAnyRole("ADMIN", "CUSTOMER", "USER")
                             .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
                             .mvcMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
-                            .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
+                            .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").hasAnyRole("ADMIN", "CUSTOMER", "USER")
                             .mvcMatchers(HttpMethod.GET, "/brewery/breweries").hasAnyRole("ADMIN","CUSTOMER")
                             .mvcMatchers(HttpMethod.GET, "/api/v1/breweries").hasAnyRole("ADMIN","CUSTOMER");
                 })
