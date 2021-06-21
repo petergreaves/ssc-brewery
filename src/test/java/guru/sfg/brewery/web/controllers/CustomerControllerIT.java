@@ -53,7 +53,7 @@ public class CustomerControllerIT extends BaseIT{
         }
 
         @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamUserOnly")
+        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamNotAdmin")
         void addCustomersAsNOTADMIN(String username, String password) throws Exception {
             mockMvc.perform(post("/customers/new",param("customerName", "foo customer"))
                     .with(httpBasic(username, password)))
