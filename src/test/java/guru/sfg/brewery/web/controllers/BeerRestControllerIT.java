@@ -80,17 +80,25 @@ public class BeerRestControllerIT extends BaseIT {
     @DisplayName("Find Tests")
     @Nested
     class FindBeerTests {
-        @Test
-        void findBeers() throws Exception {
-            mockMvc.perform(get("/api/v1/beer/"))
+
+
+        @ParameterizedTest(name = "#{index} with [{arguments}]")
+        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAllUsers")
+        void findBeers(String username, String password) throws Exception {
+            mockMvc.perform(get("/api/v1/beer/")
+                    .with(httpBasic(username, password)))
                     .andExpect(status().isOk());
         }
 
-        @Test
-        void findBeerById() throws Exception {
+
+
+        @ParameterizedTest(name = "#{index} with [{arguments}]")
+        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAllUsers")
+        void findBeerById(String username, String password) throws Exception {
             Beer beer = beerRepository.findAll().get(0);
 
-            mockMvc.perform(get("/api/v1/beer/" + beer.getId()))
+            mockMvc.perform(get("/api/v1/beer/" + beer.getId())
+                    .with(httpBasic(username, password)))
                     .andExpect(status().isOk());
         }
 
@@ -141,35 +149,5 @@ public class BeerRestControllerIT extends BaseIT {
                     .andExpect(status().isOk());
         }
 
-
-
-        @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAdminOnly")
-        void findBeerFormADMIN(String username, String password) throws Exception {
-            mockMvc.perform(get("/beers").param("beerName", "")
-                    .with(httpBasic(username, password)))
-                    .andExpect(status().isOk());
-        }
-
-        @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAllUsers")
-        void findBeerFormUSER(String username, String password) throws Exception {
-            mockMvc.perform(get("/beers").param("beerName", "")
-                    .with(httpBasic(username, password)))
-                    .andExpect(status().isOk());
-        }
-
-        @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamCustomerOnly")
-        void findBeerFormCUSTOMER(String username, String password) throws Exception {
-            mockMvc.perform(get("/beers").param("beerName", "")
-                    .with(httpBasic(username, password)))
-                    .andExpect(status().isOk());
-        }
-        @Test
-        void findBeerFormUNAUTH() throws Exception {
-            mockMvc.perform(get("/beers").param("beerName", ""))
-                    .andExpect(status().isUnauthorized());
-        }
     }
 }
