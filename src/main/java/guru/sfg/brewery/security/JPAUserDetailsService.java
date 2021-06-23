@@ -44,7 +44,7 @@ public class JPAUserDetailsService implements org.springframework.security.core.
         if (authorities!=null  && authorities.size() > 0){
             return authorities
                     .stream()
-                    .map(Authority::getRole)
+                    .map(Authority::getPermission)
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toSet());
         }
