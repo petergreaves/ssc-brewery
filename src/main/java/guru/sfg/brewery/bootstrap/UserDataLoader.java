@@ -55,11 +55,30 @@ public class UserDataLoader implements CommandLineRunner {
             Authority updateCustomer=authorityRepository.save(Authority.builder().permission("customer.update").build());
             Authority deleteCustomer=authorityRepository.save(Authority.builder().permission("customer.delete").build());
 
+
+            //order auths for admin
+
+            Authority createOrder=authorityRepository.save(Authority.builder().permission("order.create").build());
+            Authority readOrder=authorityRepository.save(Authority.builder().permission("order.read").build());
+            Authority updateOrder=authorityRepository.save(Authority.builder().permission("order.update").build());
+            Authority deleteOrder=authorityRepository.save(Authority.builder().permission("order.delete").build());
+
+            //order auths for customer
+
+            Authority createOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.create").build());
+            Authority readOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.read").build());
+            Authority updateOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.update").build());
+            Authority deleteOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.delete").build());
+
             Role adminRole=Role.builder()
                     .authorities(Set.of(createBeer,readBeer,updateBeer,deleteBeer,
                             createBrewery, updateBrewery,readBrewery,deleteBrewery,
-                            createCustomer,readCustomer,updateCustomer,deleteCustomer)).build();
-            Role customerRole=Role.builder().authorities(Set.of(readBeer, readCustomer, readBrewery)).build();
+                            createCustomer,readCustomer,updateCustomer,deleteCustomer,
+                            createOrder, deleteOrder, updateOrder, readOrder)).build();
+
+            Role customerRole=Role.builder().authorities(Set.of(readBeer, readCustomer, readBrewery,
+                    createOrderCustomer, deleteOrderCustomer, updateOrderCustomer, readOrderCustomer)).build();
+
             Role userRole=Role.builder().authorities(Set.of(readBeer)).build();
 
             roleRepository.saveAll(Arrays.asList(adminRole, customerRole,userRole));
