@@ -164,6 +164,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
             Authority readOrder=authorityRepository.save(Authority.builder().permission("order.read").build());
             Authority updateOrder=authorityRepository.save(Authority.builder().permission("order.update").build());
             Authority deleteOrder=authorityRepository.save(Authority.builder().permission("order.delete").build());
+            Authority pickupOrder=authorityRepository.save(Authority.builder().permission("order.pickup").build());
 
             //order auths for customer
 
@@ -171,15 +172,20 @@ public class DefaultBreweryLoader implements CommandLineRunner {
             Authority readOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.read").build());
             Authority updateOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.update").build());
             Authority deleteOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.delete").build());
+            Authority pickupOrderCustomer=authorityRepository.save(Authority.builder().permission("customer.order.pickup").build());
+
+            // order pickup
+
+
 
             Role adminRole=Role.builder()
                     .authorities(Set.of(createBeer,readBeer,updateBeer,deleteBeer,
                             createBrewery, updateBrewery,readBrewery,deleteBrewery,
                             createCustomer,readCustomer,updateCustomer,deleteCustomer,
-                            createOrder, deleteOrder, updateOrder, readOrder)).name("ADMIN").build();
+                            createOrder, deleteOrder, updateOrder, readOrder, pickupOrder)).name("ADMIN").build();
 
             Role customerRole=Role.builder().authorities(Set.of(readBeer, readCustomer, readBrewery,
-                    createOrderCustomer, deleteOrderCustomer, updateOrderCustomer, readOrderCustomer)).name("CUSTOMER").build();
+                    createOrderCustomer, deleteOrderCustomer, updateOrderCustomer, readOrderCustomer, pickupOrderCustomer)).name("CUSTOMER").build();
 
             Role userRole=Role.builder().authorities(Set.of(readBeer)).name("USER").build();
 
