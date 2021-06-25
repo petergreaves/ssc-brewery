@@ -90,6 +90,7 @@ class BeerOrderControllerV2Test extends BaseIT {
     }
 
 
+    @Disabled
     @Transactional
     @WithUserDetails("spring")
     @Test
@@ -100,7 +101,7 @@ class BeerOrderControllerV2Test extends BaseIT {
                 .andExpect(status().is2xxSuccessful());
     }
 
-
+    @Disabled
     @Transactional
     @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
     @Test
