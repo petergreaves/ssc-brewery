@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 @Configuration
 @EnableWebSecurity
@@ -16,11 +17,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Bean
+    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+        return new SecurityEvaluationContextExtension();
+    }
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
 
 
-         http
+        http
                 .authorizeRequests(authorize -> {
                     authorize
                             .antMatchers("/h2-console/**").permitAll()
@@ -30,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                 .and()
+                .and()
                 .httpBasic()
-                 .and().csrf().disable();
+                .and().csrf().ignoringAntMatchers("/h2-console/**", "/api/**");
 
         //h2-console
 

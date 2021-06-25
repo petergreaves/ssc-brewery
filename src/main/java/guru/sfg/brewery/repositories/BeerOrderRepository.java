@@ -23,8 +23,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.LockModeType;
+import javax.persistence.NamedQuery;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,4 +41,10 @@ public interface BeerOrderRepository  extends JpaRepository<BeerOrder, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     BeerOrder findOneById(UUID id);
+
+
+    @Query("select o from BeerOrder o where o.id = ?1 and " +
+            "(true = :#{hasAuthority('order.read')} or o.customer.id = ?#{principal?.customer?.id})")
+
+    BeerOrder findOrderByIdSecure(UUID orderId);
 }
