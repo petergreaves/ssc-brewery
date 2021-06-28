@@ -30,8 +30,12 @@
 <div class="row" sec:authorize="!isAuthenticated()">
     <div class="col-md-12">
 
-        <div th:if="${param.error}" class="alert alert-danger">Invalid username or password</div>
-        <div th:if="${param.logout}" class="alert">You have successfully logged out</div>
+        <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']?.message} == 'Bad credentials'" class="alert alert-danger">
+            Invalid username or password</div>
+        <div th:if="${param.logout}" class="alert">
+            You have successfully logged out</div>
+        <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']?.message} == 'User account is locked'">
+            Your account has been locked due to too many invalid login attempts.</div>
         <form th:action="@{/login}" method="post">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" autofocus="true" autocomplete="off" />
@@ -49,6 +53,7 @@
         <p> <a th:href="@{/logout}">Logout</a></p>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         <img class="img-responsive" src="../static/resources/images/brewery.png" th:src="@{/resources/images/brewery.png}"/>
