@@ -73,15 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
 
-        //      return NoOpPasswordEncoder.getInstance();
-        // return new LdapShaPasswordEncoder();
-        //   return new StandardPasswordEncoder();
-        //   return new BCryptPasswordEncoder();
-        return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
