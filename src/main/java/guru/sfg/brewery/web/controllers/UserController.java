@@ -23,6 +23,7 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final GoogleAuthenticator googleAuthenticator;
+    private static final String REG_URL = "user/register2fa";
 
     @GetMapping("/register2fa")
     public String register2fa(Model model){
@@ -35,14 +36,25 @@ public class UserController {
 
         model.addAttribute("googleurl", url);
 
-        return "user/register2fa";
+        return REG_URL;
+
     }
 
     @PostMapping
     public String confirm2fa(@RequestParam Integer verifyCode){
 
+        User user = getUser();
 
-        return "index";
+        if (googleAuthenticator.authorizeUser(user.getUsername(), verifyCode)){
+
+            User savedUser = userRepository.findById(user.getId()).orElseThrow();
+            savedUser.setUseGoogle2fa(true);
+            userRepository.save(savedUser);
+            return "index";
+        }else{
+            return REG_URL;
+        }
+
     }
 
     private User getUser(){
