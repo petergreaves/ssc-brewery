@@ -46,7 +46,7 @@ public class User implements UserDetails, CredentialsContainer {
     @Builder.Default
     private Boolean useGoogle2fa = false;
     @Transient
-    private boolean google2faRequired=true;
+    private Boolean google2faRequired=true;
 
     @Singular
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)

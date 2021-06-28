@@ -1,5 +1,6 @@
 package guru.sfg.brewery.web.controllers;
 
+import com.warrenstrange.googleauth.GoogleAuthenticator;
 import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.repositories.BreweryRepository;
@@ -51,6 +52,9 @@ public class IndexControllerIT extends BaseIT {
 
     @MockBean
     BeerOrderService beerOrderService;
+
+    @MockBean
+    GoogleAuthenticator googleAuthenticator;
 
     @Test
     void testGetIndexSlash() throws Exception{
