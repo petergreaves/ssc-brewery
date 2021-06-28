@@ -23,7 +23,8 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final GoogleAuthenticator googleAuthenticator;
-    private static final String REG_URL = "user/register2fa";
+    private static final String REG_URL = "/register2fa";
+    private static final String VER_URL = "/verify2fa";
 
     @GetMapping("/register2fa")
     public String register2fa(Model model){
@@ -39,6 +40,27 @@ public class UserController {
         return REG_URL;
 
     }
+
+    @GetMapping("/verify2fa")
+    public String verify2fa(){
+
+        return VER_URL;
+    }
+
+    @PostMapping
+    public String verifyPostOf2fa(@RequestParam Integer verifyCode){
+        User user = getUser();
+
+        if (googleAuthenticator.authorizeUser(user.getUsername(), verifyCode)){
+
+            ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).setGoogle2faRequired(false);
+            return "/index";
+        }else{
+            return VER_URL;
+        }
+
+    }
+
 
     @PostMapping
     public String confirm2fa(@RequestParam Integer verifyCode){
