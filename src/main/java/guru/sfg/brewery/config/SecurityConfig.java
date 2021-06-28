@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests(authorize -> {
                     authorize
                             .antMatchers("/h2-console/**").permitAll()
-                            .antMatchers("/", "/webjars/**", "/login").permitAll();
+                            .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll();
                 })
                 .authorizeRequests()
                 .anyRequest().authenticated()
