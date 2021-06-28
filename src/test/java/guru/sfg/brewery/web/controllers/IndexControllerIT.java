@@ -4,6 +4,7 @@ import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.repositories.BreweryRepository;
 import guru.sfg.brewery.repositories.CustomerRepository;
+import guru.sfg.brewery.repositories.security.LoginFailureRepository;
 import guru.sfg.brewery.repositories.security.LoginSuccessRepository;
 import guru.sfg.brewery.services.BeerOrderService;
 import guru.sfg.brewery.services.BeerService;
@@ -32,6 +33,9 @@ public class IndexControllerIT extends BaseIT {
 
     @MockBean
     LoginSuccessRepository loginSuccessRepository;
+
+    @MockBean
+    LoginFailureRepository loginFailureRepository;
 
 
     @MockBean
