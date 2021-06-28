@@ -31,6 +31,8 @@ public class User implements UserDetails, CredentialsContainer {
 
     private  String username;
     private String password;
+    private String google2faSecret;
+
     @Builder.Default
     private  boolean accountNonExpired =true;
     @Builder.Default
@@ -39,6 +41,12 @@ public class User implements UserDetails, CredentialsContainer {
     private  boolean credentialsNonExpired=true;
     @Builder.Default
     private  boolean enabled=true;
+
+
+    @Builder.Default
+    private Boolean useGoogle2fa = false;
+    @Transient
+    private boolean google2faRequired=true;
 
     @Singular
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
