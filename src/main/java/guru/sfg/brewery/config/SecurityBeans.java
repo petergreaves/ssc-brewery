@@ -26,7 +26,7 @@ public class SecurityBeans {
         GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder builder =
                 new GoogleAuthenticatorConfig.GoogleAuthenticatorConfigBuilder();
 
-        builder.setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(60))
+        builder.setTimeStepSizeInMillis(TimeUnit.SECONDS.toMillis(30))
                 .setWindowSize(10)
                 .setNumberOfScratchCodes(0);
 
