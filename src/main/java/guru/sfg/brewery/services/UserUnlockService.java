@@ -4,6 +4,7 @@ import guru.sfg.brewery.domain.security.User;
 import guru.sfg.brewery.repositories.security.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,8 @@ public class UserUnlockService {
 
     private final UserRepository userRepository;
 
-    @Scheduled(fixedRate = 3000000)
+//    @Scheduled(fixedDelayString="#{environment['scheduler.delay'] }")
+    @Scheduled(fixedDelayString="${scheduler.delay}")
     public void unlockAccounts() {
 
         log.debug("Running unlock accounts service ... ");

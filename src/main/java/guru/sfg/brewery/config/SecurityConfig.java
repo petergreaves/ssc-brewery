@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;  //for remember me
     private final PersistentTokenRepository persistentTokenRepository; //for persistent token Remember me
     private final Google2FAFilter google2FAFilter;
+   // private final JwtToke
 
 
     @Bean
@@ -61,11 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             .permitAll();
                 })
                 .httpBasic()
-                .and().csrf().ignoringAntMatchers("/h2-console/**", "/api/**")
                 .and()
-                    .rememberMe()
-                    .tokenRepository(persistentTokenRepository)
-                    .userDetailsService(userDetailsService);
+                .csrf().ignoringAntMatchers("/h2-console/**", "/api/**")
+                .and()
+                .rememberMe()
+                .tokenRepository(persistentTokenRepository)
+                .userDetailsService(userDetailsService);
 
 //                    .rememberMe()
 //                    .key("some-key")
