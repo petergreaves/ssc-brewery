@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfig {
 
-    @Bean("myBrewery")
+    @Bean("myBreweryBean")
     public Brewery brewery(){
 
         return Brewery.builder().build();

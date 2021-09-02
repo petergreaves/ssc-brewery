@@ -2,8 +2,10 @@ package guru.sfg.brewery.repos;
 
 import guru.sfg.brewery.domain.Brewery;
 import guru.sfg.brewery.repositories.BreweryRepository;
+import guru.sfg.brewery.services.BreweryService;
 import guru.sfg.brewery.services.BreweryServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,9 +27,12 @@ public class MockBeanTest {
     @MockBean
     BreweryRepository repo;
 
-    @InjectMocks
-    BreweryServiceImpl svc;
+    BreweryService svc;
 
+    @BeforeEach
+    void setUp() {
+        svc = new BreweryServiceImpl(repo);
+    }
 
     @Test
     public void testBreweries(){

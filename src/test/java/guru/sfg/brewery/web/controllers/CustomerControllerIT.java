@@ -50,7 +50,7 @@ public class CustomerControllerIT extends BaseIT{
     @DisplayName("add tests")
     @Nested
     class AddTests {
-        @RepeatedTest(10)
+    //    @RepeatedTest(10)
         @ParameterizedTest(name = "#{index} with [{arguments}]")
         @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAdminOnly")
         void addCustomersADMIN(String username, String password) throws Exception {

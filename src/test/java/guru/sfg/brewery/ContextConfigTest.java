@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-//@ContextConfiguration(classes = TestConfig.class)
-@ContextConfiguration //uses the XML confgif
+@ContextConfiguration(classes = TestConfig.class)
+//@ContextConfiguration //uses the XML confgif
 @ExtendWith(SpringExtension.class)
 public class ContextConfigTest {
 
