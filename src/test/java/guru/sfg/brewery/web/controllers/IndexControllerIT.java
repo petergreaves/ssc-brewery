@@ -1,6 +1,7 @@
 package guru.sfg.brewery.web.controllers;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
+import guru.sfg.brewery.config.SecurityConfig;
 import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.repositories.BreweryRepository;
@@ -8,6 +9,7 @@ import guru.sfg.brewery.repositories.CustomerRepository;
 import guru.sfg.brewery.repositories.security.LoginFailureRepository;
 import guru.sfg.brewery.repositories.security.LoginSuccessRepository;
 import guru.sfg.brewery.repositories.security.UserRepository;
+import guru.sfg.brewery.security.google.Google2FAFilter;
 import guru.sfg.brewery.services.BeerOrderService;
 import guru.sfg.brewery.services.BeerService;
 import guru.sfg.brewery.services.BreweryService;
@@ -17,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -27,8 +30,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@ContextConfiguration(classes = {IndexControllerIT.ConfigForGA.class})
+@ContextConfiguration(classes = {IndexControllerIT.ConfigForGA.class, SecurityConfig.class})
 public class IndexControllerIT extends BaseIT {
+
+    @MockBean
+    private Google2FAFilter google2FAFilter;
+    
     @MockBean
     BeerRepository beerRepository;
 

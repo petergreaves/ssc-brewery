@@ -25,6 +25,7 @@
     <title>SFG Brewery</title>
 </head>
 <body>
+
 <h2 th:text="#{welcomemsg}">SFG Brewery Monolith</h2>
 
 <div class="row" sec:authorize="!isAuthenticated()">
@@ -53,12 +54,10 @@
         <p> <a th:href="@{/logout}">Logout</a></p>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12">
         <img class="img-responsive" src="../static/resources/images/brewery.png" th:src="@{/resources/images/brewery.png}"/>
     </div>
 </div>
-
 </body>
 </html>
